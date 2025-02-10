@@ -1,0 +1,62 @@
+scope: postgres-cluster
+namespace: /db/
+
+restapi:
+  listen: 0.0.0.0:8008
+  connect_address: ${NODE_NAME}:8008
+
+etcd:
+  hosts: ["etcd:2379"]
+  name: ${NODE_NAME}
+
+bootstrap:
+  dcs:
+    ttl: 30
+    loop_wait: 10
+    retry_timeout: 10
+    maximum_lag_on_failover: 1048576
+    postgresql:
+      use_pg_rewind: true
+      parameters:
+        max_connections: 100
+        shared_buffers: 256MB
+        listen_addresses: '0.0.0.0'
+        unix_socket_directories: '/var/run/postgresql'
+        wal_level: 'replica'
+        max_wal_senders: 10
+        max_replication_slots: 10
+        hot_standby: 'on'
+      pg_hba:
+        - host replication replicator all md5
+        - host all all all md5
+        - host replication replicator 0.0.0.0/0 md5
+        - host replication replicator samenet md5
+        - local replication replicator trust
+
+postgresql:
+  name: ${NODE_NAME}
+  listen: 0.0.0.0:5432
+  connect_address: ${NODE_NAME}:5432
+  data_dir: /var/lib/postgresql/data
+  bin_dir: /usr/local/bin
+  pgpass: /tmp/pgpass
+  authentication:
+    replication:
+      username: replicator
+      password: replpass
+    superuser:
+      username: postgres
+      password: postgres
+  parameters:
+    unix_socket_directories: '/var/run/postgresql'
+    logging_collector: 'on'
+    log_destination: 'stderr'
+    log_directory: 'pg_log'
+    log_filename: 'postgresql-%Y-%m-%d_%H%M%S.log'
+    log_min_messages: info
+    log_min_error_statement: info
+    listen_addresses: '0.0.0.0'
+    wal_level: 'replica'
+    max_wal_senders: 10
+    max_replication_slots: 10
+    hot_standby: 'on'

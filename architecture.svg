@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="800" height="600" fill="#f8f9fa"/>
+    
+    <!-- etcd -->
+    <rect x="350" y="50" width="100" height="60" rx="5" fill="#6c757d" stroke="#495057" stroke-width="2"/>
+    <text x="400" y="85" font-family="Arial" font-size="14" fill="white" text-anchor="middle">etcd</text>
+    <text x="400" y="100" font-family="Arial" font-size="10" fill="white" text-anchor="middle">port: 2379</text>
+    
+    <!-- PostgreSQL Nodes -->
+    <!-- Leader Node -->
+    <rect x="150" y="200" width="140" height="80" rx="5" fill="#28a745" stroke="#1e7e34" stroke-width="2"/>
+    <text x="220" y="235" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Patroni1 (Leader)</text>
+    <text x="220" y="255" font-family="Arial" font-size="10" fill="white" text-anchor="middle">PostgreSQL: 5532</text>
+    <text x="220" y="270" font-family="Arial" font-size="10" fill="white" text-anchor="middle">REST API: 8008</text>
+    
+    <!-- Replica Node 1 -->
+    <rect x="330" y="200" width="140" height="80" rx="5" fill="#007bff" stroke="#0056b3" stroke-width="2"/>
+    <text x="400" y="235" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Patroni2 (Replica)</text>
+    <text x="400" y="255" font-family="Arial" font-size="10" fill="white" text-anchor="middle">PostgreSQL: 5533</text>
+    <text x="400" y="270" font-family="Arial" font-size="10" fill="white" text-anchor="middle">REST API: 8009</text>
+    
+    <!-- Replica Node 2 -->
+    <rect x="510" y="200" width="140" height="80" rx="5" fill="#007bff" stroke="#0056b3" stroke-width="2"/>
+    <text x="580" y="235" font-family="Arial" font-size="14" fill="white" text-anchor="middle">Patroni3 (Replica)</text>
+    <text x="580" y="255" font-family="Arial" font-size="10" fill="white" text-anchor="middle">PostgreSQL: 5534</text>
+    <text x="580" y="270" font-family="Arial" font-size="10" fill="white" text-anchor="middle">REST API: 8010</text>
+    
+    <!-- Connections -->
+    <!-- etcd to nodes -->
+    <line x1="400" y1="110" x2="220" y2="200" stroke="#6c757d" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="110" x2="400" y2="200" stroke="#6c757d" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <line x1="400" y1="110" x2="580" y2="200" stroke="#6c757d" stroke-width="2" marker-end="url(#arrowhead)"/>
+    
+    <!-- Replication streams -->
+    <line x1="290" y1="240" x2="330" y2="240" stroke="#28a745" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+    <line x1="470" y1="240" x2="510" y2="240" stroke="#28a745" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+    
+    <!-- Arrow marker definition -->
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#6c757d"/>
+        </marker>
+    </defs>
+    
+    <!-- Legend -->
+    <rect x="50" y="350" width="200" height="120" rx="5" fill="white" stroke="#dee2e6" stroke-width="2"/>
+    <text x="150" y="370" font-family="Arial" font-size="14" fill="#212529" text-anchor="middle" font-weight="bold">Legend</text>
+    
+    <!-- Legend items -->
+    <rect x="70" y="385" width="20" height="20" fill="#6c757d"/>
+    <text x="100" y="400" font-family="Arial" font-size="12" fill="#212529">etcd Coordination</text>
+    
+    <rect x="70" y="415" width="20" height="20" fill="#28a745"/>
+    <text x="100" y="430" font-family="Arial" font-size="12" fill="#212529">Leader Node</text>
+    
+    <rect x="70" y="445" width="20" height="20" fill="#007bff"/>
+    <text x="100" y="460" font-family="Arial" font-size="12" fill="#212529">Replica Node</text>
+</svg>

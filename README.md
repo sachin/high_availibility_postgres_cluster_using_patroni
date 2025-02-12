@@ -2,6 +2,9 @@
 
 A comprehensive PostgreSQL high-availability solution using Patroni for automatic failover, with etcd for cluster coordination. This setup provides robust high availability with automatic failover capabilities.
 
+## Architecture Diagram
+![Architecture Diagram](architecture.svg)
+
 ## Features
 
 - Automatic failover with Patroni
@@ -19,19 +22,18 @@ A comprehensive PostgreSQL high-availability solution using Patroni for automati
 - REST API for cluster management
 
 ## Components
-
 ### etcd
+
 - Distributed key-value store
 - Handles cluster coordination
 - Stores cluster state and configuration
 - Port: 2379
 
 ### Patroni Nodes
-
 #### Node 1 (patroni1)
 - Port: 5532 (PostgreSQL)
 - Port: 8008 (REST API)
-- Initially bootstraps as leader
+- Primary node with failover capability
 
 #### Node 2 (patroni2)
 - Port: 5533 (PostgreSQL)
@@ -167,4 +169,3 @@ A comprehensive PostgreSQL high-availability solution using Patroni for automati
 3. **Monitor Replication**
    ```bash
    psql -h localhost -p 5532 -U myuser -d mydb -c "SELECT * FROM pg_stat_replication;"
-   ```

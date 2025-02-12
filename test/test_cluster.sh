@@ -7,7 +7,7 @@ docker compose build
 docker compose up -d
 
 echo "Waiting for cluster to initialize (30 seconds)..."
-sleep 60
+sleep 30
 
 echo "Step 1: Checking cluster status..."
 CLUSTER_STATUS=$(curl -s http://localhost:8008/cluster)
@@ -39,7 +39,7 @@ PGPASSWORD=postgres psql -h localhost -p "$REPLICA_PORT" -U postgres -d test_db 
 echo "\nStep 4: Simulating failover by stopping leader..."
 docker stop "$LEADER_NAME"
 
-echo "\nStep 5: Waiting for failover (10 seconds)..."
+echo "\nStep 5: Waiting for failover (30 seconds)..."
 sleep 30
 
 echo "\nStep 6: Checking new cluster status..."
